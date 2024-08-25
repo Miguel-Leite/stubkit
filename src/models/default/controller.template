@@ -1,0 +1,7 @@
+class {{name}}Controller {
+  constructor() {}
+
+  public getAll(): string {
+    return 'This action returns all {{name}}';
+  }
+}

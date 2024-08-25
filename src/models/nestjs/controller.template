@@ -1,0 +1,9 @@
+import { Controller, Get } from '@nestjs/common';
+
+@Controller('{{name}}')
+export class {{name}}Controller {
+  @Get()
+  findAll(): string {
+    return 'This action returns all {{name}}';
+  }
+}
