@@ -1,0 +1,22 @@
+{
+  "name": "stubkit",
+  "version": "0.1.0",
+  "description": "CLI para criar arquivos a partir de stubs",
+  "bin": {
+    "stubkit": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts"
+  },
+  "author": "Miguel Leite",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
