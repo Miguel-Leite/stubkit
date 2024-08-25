@@ -1,6 +1,7 @@
 import { Command } from "commander";
+import { CLIAdapter } from "./adapters/input/CLIAdapter";
 
-import { CLIAdapter } from "@adapters/input/CLIAdapter";
+require("dotenv").config();
 
 const program = new Command();
 const cliAdapter = new CLIAdapter();

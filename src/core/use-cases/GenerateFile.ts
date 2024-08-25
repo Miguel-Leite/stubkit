@@ -1,5 +1,5 @@
-import { Template } from "@core/entities/Template";
-import { FileOutputPort } from "@ports/output/FileOutputPort";
+import { FileOutputPort } from "../../ports/output/FileOutputPort";
+import { Template } from "../entities/Template";
 
 export class GenerateFile {
   constructor(private fileOutputPort: FileOutputPort) {}

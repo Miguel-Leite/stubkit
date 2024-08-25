@@ -1,7 +1,6 @@
 import * as fs from "fs/promises";
-
-import { Template } from "@core/entities/Template";
-import { FileOutputPort } from "@ports/output/FileOutputPort";
+import { Template } from "../../core/entities/Template";
+import { FileOutputPort } from "../../ports/output/FileOutputPort";
 
 export class FileOutputAdapter implements FileOutputPort {
   async writeFile(template: Template): Promise<void> {
