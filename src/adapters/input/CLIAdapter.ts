@@ -34,11 +34,11 @@ export class CLIAdapter implements CreateFilePort {
 
       await this.generateFile.execute(template, filePath);
       console.log(
-        `Arquivo '${name}.${type}.ts' criado com sucesso em ${outputPath}.`
+        `File '${name}.${type}.ts' created successfully in ${outputPath}.`
       );
     } else {
       throw new Error(
-        `Modelo para '${type}' no framework '${framework}' não encontrado.`
+        `Template for '${type}' in framework '${framework}' not found.`
       );
     }
   }
@@ -46,12 +46,8 @@ export class CLIAdapter implements CreateFilePort {
   setup(program: Command) {
     program
       .command("create <type> <name> [framework]")
-      .option(
-        "--path <path>",
-        "Caminho para salvar o arquivo",
-        this.defaultPath
-      )
-      .description("Cria um novo arquivo a partir de um modelo")
+      .option("--path <path>", "Path to save file", this.defaultPath)
+      .description("Create a new file from a template")
       .action(
         async (
           type: string,
@@ -69,15 +65,11 @@ export class CLIAdapter implements CreateFilePort {
 
     program
       .command("add-template <type> <name>")
-      .option(
-        "--path <path>",
-        "Caminho para salvar o template",
-        this.defaultPath
-      )
-      .description("Adiciona um novo modelo personalizado")
+      .option("--path <path>", "Path to save the template", this.defaultPath)
+      .description("Add a new custom template")
       .action((type: string, name: string, options: { path: string }) => {
         console.log(
-          `Por favor, insira o conteúdo do modelo '${name}' (pressione Ctrl+D para finalizar):`
+          `Please enter the content of the template '${name}' (press Ctrl+D to finish):`
         );
         let content = "";
         process.stdin.on("data", (chunk) => {
@@ -86,7 +78,7 @@ export class CLIAdapter implements CreateFilePort {
         process.stdin.on("end", () => {
           TemplateProvider.saveUserTemplate(type, name, content, options.path);
           console.log(
-            `Modelo '${name}' adicionado com sucesso em ${options.path}.`
+            `Template '${name}' successfully added to ${options.path}.`
           );
         });
       });

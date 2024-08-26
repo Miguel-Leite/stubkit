@@ -9,7 +9,7 @@ const cliAdapter = new CLIAdapter();
 program
   .name("stubkit")
   .version("0.1.0")
-  .description("CLI para criar arquivos a partir de stubs");
+  .description("CLI to create files from stubs");
 
 cliAdapter.setup(program);
 
