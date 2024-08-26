@@ -30,6 +30,60 @@ npm link
 
 ```
 
+## Available and Unavailable Templates
+
+This section lists available and unavailable templates in StubKit for several popular technologies. The tool offers support for automatic file creation based on predefined templates, facilitating application development by following consistent standards.
+
+- **NestJS**:
+
+  - [x] Controller
+  - [ ] Service
+  - [ ] Module
+  - [ ] Middleware
+  - [ ] DTO (Data Transfer Object)
+  - [ ] Guard
+  - [ ] Pipe
+
+- **Express**:
+
+  - [ ] Controller
+  - [ ] Middleware
+  - [ ] Router
+  - [ ] Service
+
+- **React**:
+
+  - [ ] Component
+  - [ ] Hook
+  - [ ] Context
+  - [ ] Reducer
+
+- **Angular**:
+
+  - [ ] Component
+  - [ ] Service
+  - [ ] Module
+  - [ ] Directive
+  - [ ] Pipe
+
+- **Vue.js**:
+
+  - [ ] Component
+  - [ ] Vuex Store
+  - [ ] Directive
+
+- **Laravel**:
+
+  - [ ] Controller
+  - [ ] Model
+  - [ ] Migration
+  - [ ] Seeder
+
+- **Django**:
+  - [ ] Model
+  - [ ] View
+  - [ ] Template
+
 ## **Use**
 
 ### **1. Create a New File**
