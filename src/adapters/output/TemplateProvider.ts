@@ -3,19 +3,29 @@ import * as fs from "fs";
 
 export class TemplateProvider {
   private static readonly BASE_PATH = path.join(__dirname, "../../models/");
-  private static readonly USER_MODELS_PATH =
-    process.env.USER_TEMPLATES_PATH || path.join(process.cwd(), "stubKit/");
+  private static readonly DEFAULT_USER_MODELS_PATH = path.join(
+    process.cwd(),
+    "stubKit/"
+  );
+
+  private static getUserModelsPath(): string {
+    return process.env.USER_TEMPLATES_PATH || this.DEFAULT_USER_MODELS_PATH;
+  }
 
   static getTemplate(
     type: string,
     name: string,
-    framework: string = "default"
+    framework: string = "default",
+    outputPath?: string
   ): string {
-    const userModelPath = path.join(
-      this.USER_MODELS_PATH,
-      framework,
-      `${type}.${name}.stubKit`
-    );
+    const userModelPath = outputPath
+      ? path.join(outputPath, `${type}.${name}.stubKit`)
+      : path.join(
+          this.getUserModelsPath(),
+          framework,
+          `${type}.${name}.stubKit`
+        );
+
     if (fs.existsSync(userModelPath)) {
       return fs.readFileSync(userModelPath, "utf-8").replace(/{{name}}/g, name);
     }
@@ -30,11 +40,15 @@ export class TemplateProvider {
     return "";
   }
 
-  static saveUserTemplate(type: string, name: string, content: string): void {
-    const modelPath = path.join(
-      this.USER_MODELS_PATH,
-      `${type}.${name}.stubKit`
-    );
+  static saveUserTemplate(
+    type: string,
+    name: string,
+    content: string,
+    outputPath?: string
+  ): void {
+    const modelPath = outputPath
+      ? path.join(outputPath, `${type}.${name}.stubKit`)
+      : path.join(this.getUserModelsPath(), `${type}.${name}.stubKit`);
     fs.writeFileSync(modelPath, content);
   }
 }

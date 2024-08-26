@@ -1,10 +1,16 @@
-import { FileOutputPort } from "../../ports/output/FileOutputPort";
+import * as fs from "fs";
+import { FileOutputAdapter } from "../../adapters/output/FileOutputAdapter";
 import { Template } from "../entities/Template";
 
 export class GenerateFile {
-  constructor(private fileOutputPort: FileOutputPort) {}
+  private fileOutputAdapter: FileOutputAdapter;
 
-  async execute(template: Template): Promise<void> {
-    await this.fileOutputPort.writeFile(template);
+  constructor(fileOutputAdapter: FileOutputAdapter) {
+    this.fileOutputAdapter = fileOutputAdapter;
+  }
+
+  async execute(template: Template, filePath: string) {
+    const content = template.content;
+    fs.writeFileSync(filePath, content);
   }
 }

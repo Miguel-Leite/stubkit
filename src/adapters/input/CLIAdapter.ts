@@ -4,9 +4,12 @@ import { CreateFilePort } from "../../ports/input/CreateFilePort";
 import { FileOutputAdapter } from "../output/FileOutputAdapter";
 import { TemplateProvider } from "../output/TemplateProvider";
 import { Template } from "../../core/entities/Template";
+import * as path from "path";
+import * as fs from "fs";
 
 export class CLIAdapter implements CreateFilePort {
   private generateFile: GenerateFile;
+  private defaultPath: string = "./";
 
   constructor() {
     const fileOutputAdapter = new FileOutputAdapter();
@@ -16,16 +19,24 @@ export class CLIAdapter implements CreateFilePort {
   async createFile(
     type: string,
     name: string,
-    framework: string = "default"
+    framework: string = "default",
+    outputPath: string = this.defaultPath
   ): Promise<void> {
     const content = TemplateProvider.getTemplate(type, name, framework);
     if (content) {
       const template = new Template(type, name, content);
-      await this.generateFile.execute(template);
+      const filePath = path.join(outputPath, `${name}.${type}.ts`);
+
+      const dir = path.dirname(filePath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+
+      await this.generateFile.execute(template, filePath);
+      console.log(
+        `Arquivo '${name}.${type}.ts' criado com sucesso em ${outputPath}.`
+      );
     } else {
-      // console.error(
-      //   `Modelo para '${type}' no framework '${framework}' não encontrado.`
-      // );
       throw new Error(
         `Modelo para '${type}' no framework '${framework}' não encontrado.`
       );
@@ -35,22 +46,36 @@ export class CLIAdapter implements CreateFilePort {
   setup(program: Command) {
     program
       .command("create <type> <name> [framework]")
+      .option(
+        "--path <path>",
+        "Caminho para salvar o arquivo",
+        this.defaultPath
+      )
       .description("Cria um novo arquivo a partir de um modelo")
       .action(
-        async (type: string, name: string, framework: string = "default") => {
+        async (
+          type: string,
+          name: string,
+          framework: string = "default",
+          options: { path: string }
+        ) => {
           try {
-            await this.createFile(type, name, framework);
-            console.log(`Arquivo '${name}.${type}.ts' criado com sucesso.`);
-          } catch (error) {
-            console.error(error);
+            await this.createFile(type, name, framework, options.path);
+          } catch (error: any) {
+            console.error(error.message);
           }
         }
       );
 
     program
       .command("add-template <type> <name>")
+      .option(
+        "--path <path>",
+        "Caminho para salvar o template",
+        this.defaultPath
+      )
       .description("Adiciona um novo modelo personalizado")
-      .action((type: string, name: string) => {
+      .action((type: string, name: string, options: { path: string }) => {
         console.log(
           `Por favor, insira o conteúdo do modelo '${name}' (pressione Ctrl+D para finalizar):`
         );
@@ -59,8 +84,10 @@ export class CLIAdapter implements CreateFilePort {
           content += chunk;
         });
         process.stdin.on("end", () => {
-          TemplateProvider.saveUserTemplate(type, name, content);
-          console.log(`Modelo '${name}' adicionado com sucesso.`);
+          TemplateProvider.saveUserTemplate(type, name, content, options.path);
+          console.log(
+            `Modelo '${name}' adicionado com sucesso em ${options.path}.`
+          );
         });
       });
   }
