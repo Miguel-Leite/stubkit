@@ -47,14 +47,43 @@ stubkit create <type> <name> [framework]
 #### Example:
 
 ```bash
+
 stubkit create controller User nestjs
+
+stubkit create controller User nestjs --path ./src/controllers/
+
 ```
 
 This will create a new controller file called User.controller.ts using the template specific to NestJS.
 
-<!-- ### **2. Add a New Template** -->
+### **2. Add a New Template**
+
+To add a new custom template, use the add-template command:
+
+```bash
+stubkit add-template <type> <name>
+```
+
+- **< type>**: The type of file to be created (e.g. controller, service).
+- **< name>**: The name of the file to be created.
+
+#### Example:
+
+```bash
+stubkit add-template <type> <name>
+```
+
+## **Settings**
 
 ## **Contribution**
+
+### **Environment Variables**
+
+You can configure the path of custom templates using the USER_TEMPLATES_PATH environment variable.
+
+```bash
+export USER_TEMPLATES_PATH=./path/to/your/templates/
+```
 
 If you want to contribute to StubKit, follow these steps:
 
