@@ -125,6 +125,7 @@ stubkit add-template <type> <name>
 
 ```bash
 stubkit add-template <type> <name>
+stubkit add-template <type> <name> --path
 ```
 
 ## **Settings**
@@ -134,7 +135,7 @@ stubkit add-template <type> <name>
 You can configure the path of custom templates using the USER_TEMPLATES_PATH environment variable.
 
 ```bash
-export USER_TEMPLATES_PATH=./path/to/your/templates/
+export USER_TEMPLATES_PATH=./path/to/your/templates
 ```
 
 ## **Contribution**
