@@ -75,8 +75,6 @@ stubkit add-template <type> <name>
 
 ## **Settings**
 
-## **Contribution**
-
 ### **Environment Variables**
 
 You can configure the path of custom templates using the USER_TEMPLATES_PATH environment variable.
@@ -84,6 +82,8 @@ You can configure the path of custom templates using the USER_TEMPLATES_PATH env
 ```bash
 export USER_TEMPLATES_PATH=./path/to/your/templates/
 ```
+
+## **Contribution**
 
 If you want to contribute to StubKit, follow these steps:
 
